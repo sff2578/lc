@@ -2,3 +2,4 @@
 NOTE! do not touch the saving row and col, after all rows and cols done, set saving row and col to all zero
 289. Game of Life: if flap o->1, mark 2, if flap 1->0, mark 3, loop again and change 2 to 1 and 3 to 0. when check number of surrounding 1s, make sure to count 3 as well(this was previously 1)
 383. Ransom Note: use Counter collection for easier +1 -1, Counter("aabc")-> a:2,b:1,c:1
+205. Isomorphic Strings: s to t and t to s 1:1 mapping
