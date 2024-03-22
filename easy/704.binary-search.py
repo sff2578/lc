@@ -53,10 +53,21 @@
 class Solution:
     def search(self, nums: List[int], target: int) -> int:
         # always move to mid-1 or mid+1, ends at start < end
-        start, end = 0, len(nums)
+        start, end = 0, len(nums) - 1
         while start <= end:
             mid = (start + end) // 2
-        return
+            num = nums[mid]
+            if num == target:
+                return mid
+            elif num > target:
+                # target small, check left part
+                end = mid - 1
+            else:
+                # target big, check right part
+                start = mid + 1
+        return -1
+        # [-1,0,3,5,9,12] 13
+        #  0 1 2 3 4 5
 
 
 # @lc code=end
