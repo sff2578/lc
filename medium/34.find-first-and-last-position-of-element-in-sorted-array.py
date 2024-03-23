@@ -103,5 +103,46 @@ class Solution:
 
         return ret
 
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        # 03/22/2024
+        # separatly search for first occurance and last occurance of target
+        # for first occurance: if num < t: s=m+1, else: e=m(as m may be the first occurance).
+        #   since e may not change, might have inifite loop when s==e and num >= t, so check s==e case separatly
+        #   also this works because e=m is always updating e before s==e(mid will always go to the front)
+        # for last occurance: split to <t =t >t 3 cases for simplicity
+
+        # find first occur
+        s, e = 0, len(nums) - 1
+        while s <= e:
+            mid = (s + e) // 2
+            num = nums[mid]
+            if s == e and num == target:
+                break
+            elif s == e and num != target:
+                # didnt found, return
+                return [-1, -1]
+            else:
+                if num < target:
+                    s = mid + 1
+                else:
+                    e = mid
+        first = s
+        s, e = 0, len(nums) - 1
+        # at this point, we will for sure find target
+        while s <= e:
+            if s + 1 >= e:
+                # this cover 1 number and 2 number case
+                if nums[e] == target:
+                    return [first, e]
+                else:
+                    return [first, s]
+            mid = (s + e) // 2
+            num = nums[mid]
+            if num > target:
+                e = mid - 1
+            else:
+                s = mid
+        return [-1, -1]
+
 
 # @lc code=end
