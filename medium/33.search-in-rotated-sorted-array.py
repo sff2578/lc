@@ -83,5 +83,32 @@ class Solution:
                 e = mid - 1
         return -1
 
+    def search(self, nums, target: int) -> int:
+        # 03/26/2024
+        # first check [s,m] [m,e] which side is ascending
+        # then check if target fall into ascending sub-array
+        s, e = 0, len(nums) - 1
+        while s < e:
+            mid = (s + e) // 2
+            if nums[mid] == target:
+                return mid
+            if nums[s] <= nums[mid]:
+                # left side is ascending
+                if target >= nums[s] and target < nums[mid]:
+                    # target fall into ascending
+                    e = mid
+                else:
+                    s = mid + 1
+            else:
+                # right side is ascending
+                if target > nums[mid] and target <= nums[e]:
+                    # target fall into ascending
+                    s = mid + 1
+                else:
+                    e = mid
+        if nums[s] == target:
+            return s
+        return -1
+
 
 # @lc code=end
