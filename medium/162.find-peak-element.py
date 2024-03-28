@@ -79,5 +79,23 @@ class Solution:
 
         return
 
+    def findPeakElement(self, nums: List[int]) -> int:
+        # 03/27/2024
+        # same algorithm as previous
+        s, e = 0, len(nums) - 1
+        while s <= e:
+            mid = (s + e) // 2
+            pre = -inf if mid == s else nums[mid - 1]
+            next = -inf if mid == e else nums[mid + 1]
+            if nums[mid] > pre and nums[mid] > next:
+                return mid
+            elif nums[mid] < pre:
+                # left greater, go left
+                e = mid - 1
+            else:
+                # right greater go right
+                s = mid + 1
+        return -1
+
 
 # @lc code=end

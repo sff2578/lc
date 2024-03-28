@@ -84,5 +84,31 @@ class Solution:
                 s = mX + 1
         return -1
 
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        # 03/26/2024 save algorithm as before
+        if len(nums1) > len(nums2):
+            return self.findMedianSortedArrays(nums2, nums1)
+        # num1<nums2
+        s, e = 0, len(nums1)
+        t_sub = (len(nums1) + len(nums2) + 1) // 2
+        while s <= e:
+            mid = (s + e) // 2
+            nums1l = -inf if mid - 1 < 0 else nums1[mid - 1]
+            nums1r = inf if mid == len(nums1) else nums1[mid]
+            nums2l = -inf if t_sub - mid - 1 < 0 else nums2[t_sub - mid - 1]
+            nums2r = inf if t_sub - mid == len(nums2) else nums2[t_sub - mid]
+            # print(nums1l, nums1r, nums2l, nums2r)
+            if nums1l <= nums2r and nums2l <= nums1r:
+                # found
+                if (len(nums1) + len(nums2)) % 2:
+                    # odd
+                    return max(nums1l, nums2l)
+                else:
+                    return (max(nums1l, nums2l) + min(nums1r, nums2r)) / 2
+            elif nums1l > nums2r:
+                e = mid - 1
+            else:
+                s = mid + 1
+
 
 # @lc code=end

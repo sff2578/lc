@@ -82,5 +82,24 @@ class Solution:
 
         return recursive(0, end)
 
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        # 03/36/2024
+        # serialize and iterative
+        row, col = len(matrix), len(matrix[0])
+        s, e = 0, row * col - 1
+        while s <= e:
+            mid = (s + e) // 2
+            c = mid % col
+            r = mid // col
+            if matrix[r][c] == target:
+                return True
+            elif target < matrix[r][c]:
+                # left
+                e = mid - 1
+            else:
+                # right
+                s = mid + 1
+        return False
+
 
 # @lc code=end
