@@ -85,5 +85,32 @@ class Solution:
             maxTotal -= height[i]
         return maxTotal
 
+    def trap(self, height: List[int]) -> int:
+        # 04/01/2024
+        # calculate for each column, total will be sum of all columns
+        # each column, amount of water will be:
+        #   min(maxL,maxR) - h[i]
+        # two pointer from left and right to get maxL and maxR
+        # the smaller pointer among(maxL,maxR) move forward(
+        #   this is because the small one is bottleneck, we
+        #   don't really care how max on the other side)
+        # Input: height = [4,2,0,3,2,5]
+        left, right, maxL, maxR = 0, len(height) - 1, height[0], height[-1]
+        res = 0
+        while left + 1 < right:
+            # print(left, right)#
+            if maxL <= maxR:
+                # left move forward
+                left += 1
+                res += max(maxL - height[left], 0)
+                maxL = max(maxL, height[left])
+            else:
+                # right move forward
+                right -= 1
+                res += max(maxR - height[right], 0)
+                maxR = max(maxR, height[right])
+            # print(maxL, maxR, res)
+        return res
+
 
 # @lc code=end

@@ -95,5 +95,22 @@ class Solution:
             j += 1
         return i
 
+    def removeDuplicates(self, nums: List[int]) -> int:
+        # 03/30/2024
+        # p previous value
+        # p1: the place going to be changed(++ once changed)
+        #       change if p2 not same as p
+        # p2: go to next one
+        if len(nums) == 1:
+            return 1
+        pre, p1, p2 = nums[0], 1, 1
+        while p2 < len(nums):
+            if nums[p2] != pre:
+                pre = nums[p2]
+                nums[p1] = nums[p2]
+                p1 += 1
+            p2 += 1
+        return p1
+
 
 # @lc code=end

@@ -106,5 +106,24 @@ class Solution:
 
         return i
 
+    def removeDuplicates(self, nums: List[int]) -> int:
+        # 03/30/2024
+        # save p number and p count
+        # j go next every time, if j num not same as p, switch and update p/p count
+        #  otherwise p_cnt++
+        # change i if j not same with p or p_cnt <2
+        p, p_cnt = nums[0], 1
+        i, j = 1, 1
+        while j < len(nums):
+            if nums[j] != p or (nums[j] == p and p_cnt < 2):
+                if nums[j] != p:
+                    p, p_cnt = nums[j], 1
+                else:
+                    p_cnt += 1
+                nums[i] = nums[j]
+                i += 1
+            j += 1
+        return i
+
 
 # @lc code=end

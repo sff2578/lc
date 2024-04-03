@@ -130,5 +130,17 @@ class Solution:
     #            right = mid
     #    return arr[left : left + k]
 
+    def findClosestElements(self, arr: List[int], k: int, x: int) -> List[int]:
+        # 04/02/2024
+        # Input: arr = [1,2,3,4,5], k = 4, x = 3
+        s, e = 0, len(arr) - k
+        while s < e:
+            mid = s + (e - s) // 2
+            if x - arr[mid] <= arr[mid + k] - x:
+                e = mid
+            else:
+                s = mid + 1
+        return arr[s : s + k]
+
 
 # @lc code=end
