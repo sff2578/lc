@@ -86,5 +86,26 @@ class Solution:
             ret = ret.next
         return retList.next
 
+    def mergeTwoLists(
+        self, list1: Optional[ListNode], list2: Optional[ListNode]
+    ) -> Optional[ListNode]:
+        # 04/03/2024
+        head = ListNode()
+        tmp = head
+        while list1 and list2:
+            if list1.val <= list2.val:
+                tmp.next = list1
+                list1 = list1.next
+            else:
+                tmp.next = list2
+                list2 = list2.next
+            tmp = tmp.next
+        if list1:
+            tmp.next = list1
+        else:
+            tmp.next = list2
+
+        return head.next
+
 
 # @lc code=end

@@ -124,5 +124,45 @@ class Solution:
             intervals.append(newInterval)
         return intervals
 
+    def insert(
+        self, intervals: List[List[int]], newInterval: List[int]
+    ) -> List[List[int]]:
+        # 04/05/2024
+        # each round, compare old itv and tgt itv, small one comes first
+        # merge or append to new interval
+
+        # assume itv1<itv2
+        def overlap(itv1, itv2):
+            return itv1[1] >= itv2[0]
+
+        # itv1 < itv2
+        def merge(itv1, itv2):
+            return [itv1[0], max(itv1[1], itv2[1])]
+
+        ret = []
+        i = 0
+        added = False
+        while i < len(intervals):
+            itv = intervals[i]
+            if added or itv[0] < newInterval[0]:
+                # itv turn
+                i += 1
+            else:
+                # new interval turn
+                # do NOT add i
+                itv = newInterval
+                added = True
+            # merge or append itv
+            if len(ret) > 0 and overlap(ret[-1], itv):
+                ret[-1] = merge(ret[-1], itv)
+            else:
+                ret.append(itv)
+        if not added:
+            if len(ret) > 0 and overlap(ret[-1], newInterval):
+                ret[-1] = merge(ret[-1], newInterval)
+            else:
+                ret.append(newInterval)
+        return ret
+
 
 # @lc code=end

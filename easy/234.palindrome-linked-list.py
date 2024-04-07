@@ -67,6 +67,7 @@ class Solution:
 
         left, right = prev, slow
         while left != None and right != None:
+            print(left.val, right.val)
             if left.val != right.val:
                 return False
             left, right = left.next, right.next

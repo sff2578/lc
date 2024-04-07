@@ -57,7 +57,8 @@ int* sortArray(int* nums, int numsSize, int* returnSize) {
    int *new_nums =  (int *)malloc(numsSize * sizeof(int));
    memcpy(new_nums, nums, numsSize*sizeof(int));
    *returnSize = numsSize;
-   quickSory(new_nums, 0, numsSize-1);
+   //quickSory(new_nums, 0, numsSize-1);
+   quicksort(new_nums, 0, numsSize-1);
    return new_nums;
 }
 
@@ -83,6 +84,36 @@ void quickSory(int* nums, int s, int e) {
     }
     quickSory(nums, s, j);
     quickSory(nums, i, e);
+    return;
+}
+
+void quicksort(int*nums, int s, int e) {
+    // 04/05/2024 quick sort
+    if (s > e) {
+        return;
+    }
+    int pivot = nums[s];
+    int i = s+1, j = e; 
+    while (i <= j) {
+        while(i <= j && nums[i] < pivot) {
+            i++;
+        }
+        while(i <= j && nums[j] > pivot) {
+            j--;
+        }
+        if (i <= j) {
+            int tmp = nums[i];
+            nums[i] = nums[j];
+            nums[j] = tmp;
+            i++;
+            j--;
+        }
+    }
+    int tmp = nums[j];
+    nums[j] = nums[s];
+    nums[s] = tmp;
+    quicksort(nums, s, j-1);
+    quicksort(nums, i, e);
     return;
 }
 // @lc code=end

@@ -72,5 +72,24 @@ class Solution:
             small_cur.next = second_head.next
         return first_head.next
 
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
+        # 04/04/2024
+        # 2 pointers 1 small 1 big
+        # Input: head = [1,4,3,2,5,2], x = 3
+        sml_h, big_h = ListNode(), ListNode()
+        sml_c, big_c = sml_h, big_h
+        cur = head
+        while cur:
+            if cur.val >= x:
+                big_c.next = cur
+                big_c = big_c.next
+            else:
+                sml_c.next = cur
+                sml_c = sml_c.next
+            cur = cur.next
+        sml_c.next = big_h.next
+        big_c.next = None
+        return sml_h.next
+
 
 # @lc code=end

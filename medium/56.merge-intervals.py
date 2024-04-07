@@ -74,6 +74,28 @@ class Solution:
         target_intv[0] = min(intv[0], target_intv[0])
         target_intv[1] = max(intv[1], target_intv[1])
 
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        # 04/05/2024
+        # new interval list
+        # check end of new list overlap with next interval?
+        #   yes: merge and replace, no: append
+        intervals = sorted(intervals, key=lambda x: x[0])
+
+        def overlap(itv1, itv2):
+            return itv1[1] >= itv2[0]
+
+        def merge(itv1, itv2):
+            return [itv1[0], max(itv1[1], itv2[1])]
+
+        ret = [intervals[0]]
+        for interval in intervals:
+            if overlap(ret[-1], interval):
+                new_interval = merge(ret[-1], interval)
+                ret[-1] = new_interval
+            else:
+                ret.append(interval)
+        return ret
+
 
 # [[2,3],[4,5],[6,7],[8,9],[1,10]]
 
